@@ -2,16 +2,16 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useQuery } from '@tanstack/react-query';
 import { testimonialsAPI } from '../../lib/api';
-import type {  Testimonial  } from '../../types';
+import type { Testimonial } from '../../types';
 import { Star, Quote } from 'lucide-react';
 
 const placeholderTestimonials: Testimonial[] = [
-    { _id: '1', customerName: 'Priya Krishnan', rating: 5, review: 'Absolutely stunning pencil portrait of my family! Artist Saran captured every detail perfectly. The quality is beyond what I expected. Worth every rupee!', artworkType: 'Family Portrait', profilePhoto: 'https://i.pravatar.cc/80?img=1', isApproved: true, isFeatured: true, createdAt: '' },
-    { _id: '2', customerName: 'Rahul Sharma', rating: 5, review: 'Got a couple portrait as a wedding anniversary gift. My wife was in tears — it was so beautiful and realistic. Will definitely order again!', artworkType: 'Couple Portrait', profilePhoto: 'https://i.pravatar.cc/80?img=12', isApproved: true, isFeatured: true, createdAt: '' },
-    { _id: '3', customerName: 'Meena Sundaram', rating: 5, review: 'The fingerprint tree for our family reunion was the best gift ever! Everyone loved it. Packaging was excellent and delivery was on time.', artworkType: 'Fingerprint Tree', profilePhoto: 'https://i.pravatar.cc/80?img=5', isApproved: true, isFeatured: true, createdAt: '' },
-    { _id: '4', customerName: 'Vikram Nair', rating: 5, review: 'Pet portrait of my dog was absolutely perfect! Captured his personality so well. The colour pencil art is vibrant and looks premium framed.', artworkType: 'Pet Portrait', profilePhoto: 'https://i.pravatar.cc/80?img=8', isApproved: true, isFeatured: false, createdAt: '' },
-    { _id: '5', customerName: 'Divya Rajan', rating: 5, review: 'Ordered an acrylic painting for my living room — it transformed the entire space! Saran is incredibly talented and responsive to feedback.', artworkType: 'Acrylic Painting', profilePhoto: 'https://i.pravatar.cc/80?img=9', isApproved: true, isFeatured: false, createdAt: '' },
-    { _id: '6', customerName: 'Arun Kumar', rating: 5, review: 'The photo frame quality is exceptional. I got four custom frames and they look outstanding. Fast delivery and great customer service!', artworkType: 'Custom Photo Frame', profilePhoto: 'https://i.pravatar.cc/80?img=15', isApproved: true, isFeatured: false, createdAt: '' },
+    { _id: '1', customerName: 'Priyadharshini – Chennai', rating: 5, review: 'Pencil portrait romba nalla irundhuchu. En akka-ku gift ah kuduthen, avanga romba happy aayitanga. Kandippa recommend panren.', artworkType: 'Pencil Portrait', profilePhoto: '/testimonials/priyadharshini.png', isApproved: true, isFeatured: true, createdAt: '' },
+    { _id: '2', customerName: 'Karthikeyan – Coimbatore', rating: 5, review: 'Enga family portrait super ah vandhirundhuchu. Original photo madhiri irundhuchu. Family ku romba pidichiruku.', artworkType: 'Family Portrait', profilePhoto: '/testimonials/karthikeyan.png', isApproved: true, isFeatured: true, createdAt: '' },
+    { _id: '3', customerName: 'Meenakshi – Madurai', rating: 5, review: 'Wedding gift ah order pannom. Result expected vida better ah irundhuchu. Delivery um correct time ku vandhuduchu.', artworkType: 'Wedding Sketch', profilePhoto: '/testimonials/meenakshi.png', isApproved: true, isFeatured: true, createdAt: '' },
+    { _id: '4', customerName: 'Saravanan – Trichy', rating: 5, review: 'Frame quality semma. Hall la maati vachirukom, vandha ellarum pathi kekuraanga.', artworkType: 'Custom Frame', profilePhoto: '/testimonials/saravanan.png', isApproved: true, isFeatured: false, createdAt: '' },
+    { _id: '5', customerName: 'Kavitha – Salem', rating: 5, review: 'Enga dog oda portrait super ah iruku. Face expression kooda perfect ah capture pannirukanga.', artworkType: 'Pet Portrait', profilePhoto: '/testimonials/kavitha.png', isApproved: true, isFeatured: false, createdAt: '' },
+    { _id: '6', customerName: 'Arun Prakash – Erode', rating: 5, review: 'Artwork work romba alaga irundhuchu. Veetuku vandhavanga ellarume paarthu super ah iruku nu sonnanga. Semma work!', artworkType: 'Custom Artwork', profilePhoto: '/testimonials/arun.png', isApproved: true, isFeatured: false, createdAt: '' },
 ];
 
 const RatingStars = ({ rating }: { rating: number }) => (
@@ -42,10 +42,10 @@ const TestimonialsSection = () => {
                 >
                     <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--gold)' }}>Testimonials</span>
                     <h2 className="font-cinzel text-4xl md:text-5xl font-bold mt-3 mb-4">
-                        <span className="gradient-text">Happy Customers</span>
+                        <span className="gradient-text">HAPPY CUSTOMERS FROM TAMIL NADU</span>
                     </h2>
                     <p className="max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-                        500+ satisfied customers who treasure their personalized artwork
+                        500+ customers across Tamil Nadu trust Sketch_Vibes23 for personalized handmade artwork.
                     </p>
                 </motion.div>
 

@@ -1,4 +1,12 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+// Verify dotenv is loaded and add debug log
+const result = dotenv.config();
+if (result.error) {
+    console.log("❌ Error loading .env file");
+} else {
+    console.log("✅ Environment variables loaded");
+}
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -7,11 +15,6 @@ const morgan = require('morgan');
 const connectDB = require('./src/config/db');
 
 const app = express();
-
-// Connect to MongoDB
-connectDB();
-
-// Security middleware
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 // Allow multiple origins: FRONTEND_URL can be comma-separated for Render + local dev
 const allowedOrigins = [
@@ -61,6 +64,15 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+
+// Connect to MongoDB and start server
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+}).catch(err => {
+    console.error('Failed to start server due to database connection error.');
+    process.exit(1);
+});
 
 module.exports = app;
