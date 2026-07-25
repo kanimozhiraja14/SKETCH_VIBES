@@ -1,7 +1,5 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Camera, MessageCircle, Eye, ShoppingBag, ChevronDown, Palette, Star, Award, Truck } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+
+import PromoBannerSection from '../components/home/PromoBannerSection';
 import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
 import GalleryPreview from '../components/home/GalleryPreview';
@@ -15,6 +13,7 @@ const HomePage = () => {
             <FeaturesSection />
             <ServicesSection />
             <GalleryPreview />
+            <PromoBannerSection />
             <ContactSection />
         </div>
     );

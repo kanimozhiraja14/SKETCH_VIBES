@@ -1,34 +1,33 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useQuery } from '@tanstack/react-query';
 import { servicesAPI } from '../../lib/api';
-import type {  Service  } from '../../types';
+import type { Service } from '../../types';
 import { Link } from 'react-router-dom';
-import { Calendar, DollarSign, ArrowRight } from 'lucide-react';
+import { Calendar, DollarSign, ArrowRight, X } from 'lucide-react';
 
 const placeholderServices: Service[] = [
-    { _id: '1', title: 'Pencil Sketching', description: 'Hyper-realistic pencil portraits capturing every detail with artistic precision.', category: 'Drawing', imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80', startingPrice: 800, priceRange: '₹800 – ₹3,000', estimatedDays: '5-7 days', features: ['Reference photo required', 'A4/A3 sizes', 'Premium cartridge paper'], isActive: true, isFeatured: true },
-    { _id: '2', title: 'Colour Pencil Art', description: 'Vibrant colour pencil masterpieces bursting with life and emotion.', category: 'Drawing', imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=80', startingPrice: 1200, priceRange: '₹1,200 – ₹4,500', estimatedDays: '7-10 days', features: ['Vivid colours', 'Smooth blending', 'Multiple sizes'], isActive: true, isFeatured: true },
-    { _id: '3', title: 'Acrylic Paintings', description: 'Bold, expressive acrylic paintings on premium canvas with lasting colours.', category: 'Painting', imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80', startingPrice: 2000, priceRange: '₹2,000 – ₹8,000', estimatedDays: '10-14 days', features: ['Canvas painting', 'UV protected', 'Ready to hang'], isActive: true, isFeatured: true },
-    { _id: '4', title: 'Oil Paintings', description: 'Classic oil paintings with rich textures and timeless depth of colour.', category: 'Painting', imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80', startingPrice: 3500, priceRange: '₹3,500 – ₹15,000', estimatedDays: '14-21 days', features: ['Linseed oil base', 'Rich texture', 'Aging resistant'], isActive: true, isFeatured: true },
-    { _id: '5', title: 'Blood Art', description: 'Unique and powerful artwork created with artistic blood-like pigments.', category: 'Special', imageUrl: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&q=80', startingPrice: 1500, priceRange: '₹1,500 – ₹5,000', estimatedDays: '7-10 days', features: ['Special pigment', 'Unique medium', 'Certificate included'], isActive: true, isFeatured: false },
-    { _id: '6', title: 'Turmeric Painting', description: 'Traditional Indian art using natural turmeric for warm golden tones.', category: 'Special', imageUrl: 'https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=400&q=80', startingPrice: 1000, priceRange: '₹1,000 – ₹3,500', estimatedDays: '5-7 days', features: ['Natural medium', 'Golden hues', 'Traditional art'], isActive: true, isFeatured: false },
-    { _id: '7', title: 'Quill Art', description: 'Intricate quilling paper art shaped into stunning portraits and patterns.', category: 'Craft', imageUrl: 'https://images.unsplash.com/photo-1517697471339-4aa32003c11a?w=400&q=80', startingPrice: 1800, priceRange: '₹1,800 – ₹6,000', estimatedDays: '10-14 days', features: ['3D texture', 'Paper quilling', 'Unique pieces'], isActive: true, isFeatured: false },
-    { _id: '8', title: 'Fingerprint Tree', description: 'Meaningful family trees created from fingerprint impressions of loved ones.', category: 'Craft', imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', startingPrice: 2500, priceRange: '₹2,500 – ₹7,000', estimatedDays: '7-10 days', features: ['Family keepsake', 'Personalized', 'Framed ready'], isActive: true, isFeatured: true },
-    { _id: '9', title: 'Paper Quilling', description: 'Delicate rolled paper art creating intricate floral and abstract designs.', category: 'Craft', imageUrl: 'https://images.unsplash.com/photo-1524335442-77da9cd08c84?w=400&q=80', startingPrice: 1200, priceRange: '₹1,200 – ₹4,000', estimatedDays: '7-14 days', features: ['Paper art', 'Detailed work', 'Gift ready'], isActive: true, isFeatured: false },
-    { _id: '10', title: 'Event Artwork', description: 'Live event sketching and custom artwork for weddings, birthdays & events.', category: 'Event', imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80', startingPrice: 5000, priceRange: '₹5,000 – ₹20,000', estimatedDays: 'On-site', features: ['Live sketching', 'Event coverage', 'Same day delivery'], isActive: true, isFeatured: true },
-    { _id: '11', title: 'Wall Murals', description: 'Large-scale wall murals transforming spaces into breathtaking art installations.', category: 'Mural', imageUrl: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&q=80', startingPrice: 8000, priceRange: '₹8,000 – ₹50,000', estimatedDays: 'By consultation', features: ['On-site work', 'Custom design', 'Durable paints'], isActive: true, isFeatured: false },
-    { _id: '12', title: 'Custom Photo Frames', description: 'Handcrafted premium frames to display your most precious memories forever.', category: 'Frames', imageUrl: 'https://images.unsplash.com/photo-1544931170-b5b55a2b0f58?w=400&q=80', startingPrice: 500, priceRange: '₹500 – ₹3,000', estimatedDays: '3-5 days', features: ['Multiple sizes', 'Custom colours', 'Premium material'], isActive: true, isFeatured: true },
+    { _id: '1', title: 'Canvas Painting', description: 'Bold, expressive canvas paintings capturing culture, devotion, and life.', category: 'Painting', imageUrl: '/artwork/canvas_painting.jpg', startingPrice: 2000, priceRange: '₹2,000 – ₹8,000', estimatedDays: '10–14 days', features: ['Premium canvas', 'Vibrant colors', 'Ready to hang'], isActive: true, isFeatured: true },
+    { _id: '2', title: 'Paper Quilling', description: 'Intricate and colourful paper quilling names and shapes crafted with absolute perfection.', category: 'Craft', imageUrl: '/artwork/quil_art.jpg', startingPrice: 1500, priceRange: '₹1,500 – ₹4,500', estimatedDays: '7–10 days', features: ['3D paper texture', 'Intricate details', 'Custom names'], isActive: true, isFeatured: true },
+    { _id: '3', title: 'Fingerprint Tree', description: 'Heartfelt family trees for your special occasions using fingerprint impressions.', category: 'Special', imageUrl: '/artwork/fingerprint_tree_1.jpg', startingPrice: 2500, priceRange: '₹2,500 – ₹7,000', estimatedDays: '7–10 days', features: ['Personalised keepsakes', 'Couples & Family', 'Framed options'], isActive: true, isFeatured: true },
+    { _id: '5', title: 'Colour Pencil Drawing', description: 'Vibrant, hyper-realistic colour pencil masterpieces full of rich detail and emotion.', category: 'Drawing', imageUrl: '/artwork/colour_pencil.jpg', startingPrice: 1200, priceRange: '₹1,200 – ₹4,500', estimatedDays: '7–10 days', features: ['Rich vivid colours', 'Smooth blending', 'Portraits & Art'], isActive: true, isFeatured: true },
+    { _id: '6', title: 'Pencil Sketching', description: 'Hyper-realistic monochrome pencil portraits capturing every expression flawlessly.', category: 'Drawing', imageUrl: '/artwork/pencil_sketching.jpg', startingPrice: 800, priceRange: '₹800 – ₹3,000', estimatedDays: '5–7 days', features: ['High realism', 'Detailed shading', 'Classic style'], isActive: true, isFeatured: true },
+    { _id: '7', title: 'Blood Art', description: 'A highly unique and emotional artwork style using special reddish-brown tones.', category: 'Special', imageUrl: '/artwork/blood_art.jpg', startingPrice: 1500, priceRange: '₹1,500 – ₹5,000', estimatedDays: '7–10 days', features: ['Unique medium', 'High contrast', 'Unforgettable gift'], isActive: true, isFeatured: true },
+    { _id: '4', title: 'Mobile Cover Sketching', description: 'Customised mobile back cover sketching for your favourite memories.', category: 'Special', imageUrl: '/artwork/mobile_back_cover.jpg', startingPrice: 500, priceRange: '₹500 – ₹1,500', estimatedDays: '3–5 days', features: ['Detailed sketches', 'Durable coat', 'Custom models'], isActive: true, isFeatured: true },
+    { _id: '8', title: 'Pencil Curving', description: 'Mind-blowing miniature sculptures carved directly onto pencil leads.', category: 'Miniature', imageUrl: '/artwork/pencil_curving.jpg', startingPrice: 1200, priceRange: '₹1,200 – ₹3,000', estimatedDays: '7–10 days', features: ['Micro detailing', 'Custom text carving', 'Extreme precision'], isActive: true, isFeatured: true },
 ];
 
 const ServicesSection = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const [lightbox, setLightbox] = useState<Service | null>(null);
     const { data } = useQuery({
         queryKey: ['services'],
         queryFn: () => servicesAPI.getAll().then(r => r.data.data as Service[]),
     });
 
-    const services = data && data.length > 0 ? data : placeholderServices;
+    const serverServices = data || [];
+    const services = [...serverServices, ...placeholderServices].slice(0, 8);
 
     return (
         <section ref={ref} className="py-24 px-4" style={{ background: 'var(--dark-bg)' }}>
@@ -59,13 +58,17 @@ const ServicesSection = () => {
                             className="glass rounded-2xl overflow-hidden group cursor-pointer"
                         >
                             {/* Image */}
-                            <div className="relative h-48 overflow-hidden">
+                            <div
+                                className="relative h-48 overflow-hidden"
+                                style={{ backgroundColor: 'rgba(0,0,0,0.6)', cursor: 'zoom-in' }}
+                                onClick={() => setLightbox(service)}
+                            >
                                 <img
                                     src={service.imageUrl}
                                     alt={service.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.8), transparent)' }} />
+                                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.8), transparent)' }} />
                                 <div className="absolute top-3 right-3">
                                     <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(212,175,55,0.2)', color: 'var(--gold)', border: '1px solid rgba(212,175,55,0.3)' }}>
                                         {service.category}
@@ -132,6 +135,62 @@ const ServicesSection = () => {
                     </Link>
                 </motion.div>
             </div>
+
+            {/* Lightbox */}
+            <AnimatePresence>
+                {lightbox && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setLightbox(null)}
+                        style={{
+                            position: 'fixed', inset: 0, zIndex: 100,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            padding: 24, background: 'rgba(0,0,0,0.93)',
+                            backdropFilter: 'blur(12px)',
+                        }}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.82, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.82, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            onClick={e => e.stopPropagation()}
+                            style={{ position: 'relative', maxWidth: 900, width: '100%' }}
+                        >
+                            <button
+                                onClick={() => setLightbox(null)}
+                                style={{
+                                    position: 'absolute', top: -16, right: -16, zIndex: 110,
+                                    width: 42, height: 42, borderRadius: '50%', border: 'none', cursor: 'pointer',
+                                    background: 'rgba(255,255,255,0.12)', color: '#fff',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    backdropFilter: 'blur(4px)',
+                                }}
+                            >
+                                <X size={18} />
+                            </button>
+
+                            <img
+                                src={lightbox.imageUrl}
+                                alt={lightbox.title}
+                                style={{ width: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: 18, display: 'block' }}
+                            />
+
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 18, padding: '0 4px' }}>
+                                <div>
+                                    <p style={{ fontSize: 12, color: 'var(--gold)', marginBottom: 4, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{lightbox.category}</p>
+                                    <h3 className="font-cinzel" style={{ fontSize: 20, fontWeight: 700, color: '#F0F0F0' }}>{lightbox.title}</h3>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#555', fontSize: 13 }}>
+                                    Starting at {lightbox.priceRange || `₹${lightbox.startingPrice}`}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };

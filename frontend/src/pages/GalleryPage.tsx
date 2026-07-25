@@ -8,25 +8,24 @@ import { useInView } from 'react-intersection-observer';
 
 /* ─── Constants ─────────────────────────────────────────────────── */
 const CATEGORIES = [
-    'All', 'Pencil Sketch', 'Colour Pencil Art', 'Acrylic Painting', 'Oil Painting',
-    'Canvas Painting', 'Blood Art', 'Fingerprint Tree', 'Turmeric Painting',
-    'Paper Quilling', 'Wall Murals', 'Couple Portraits', 'Family Portraits',
-    'Pet Portraits', 'Wedding Gifts', 'Photo Frames',
+    'All', 'Pencil Sketch', 'Colour Pencil Art', 'Canvas Painting',
+    'Blood Art', 'Fingerprint Tree', 'Paper Quilling', 'Mobile Case Sketching',
+    'Pencil Curving', 'Couple Portraits', 'Acrylic Painting', 'Oil Painting',
+
 ];
 
 const PLACEHOLDERS: GalleryItem[] = [
-    { _id: '1', title: 'Romantic Couple Sketch', category: 'Couple Portraits', imageUrl: 'https://images.unsplash.com/photo-1543489822-c49534f3271f?w=600&q=80', isFeatured: true, views: 234, tags: ['couple', 'pencil'], publicId: '', description: '', createdAt: '' },
-    { _id: '2', title: 'Pencil Portrait', category: 'Pencil Sketch', imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80', isFeatured: true, views: 189, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '3', title: 'Acrylic Landscape', category: 'Acrylic Painting', imageUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80', isFeatured: false, views: 156, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '4', title: 'Classic Oil Portrait', category: 'Oil Painting', imageUrl: 'https://images.unsplash.com/photo-1503455637927-730bce8583c0?w=600&q=80', isFeatured: true, views: 312, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '5', title: 'Wedding Gift Art', category: 'Wedding Gifts', imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80', isFeatured: false, views: 98, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '6', title: 'Happy Family', category: 'Family Portraits', imageUrl: 'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=600&q=80', isFeatured: true, views: 267, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '7', title: 'Pet Portrait', category: 'Pet Portraits', imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&q=80', isFeatured: false, views: 198, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '8', title: 'Colour Pencil Art', category: 'Colour Pencil Art', imageUrl: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&q=80', isFeatured: true, views: 143, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '9', title: 'Wall Mural', category: 'Wall Murals', imageUrl: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=600&q=80', isFeatured: false, views: 89, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '10', title: 'Custom Photo Frame', category: 'Photo Frames', imageUrl: 'https://images.unsplash.com/photo-1544931170-b5b55a2b0f58?w=600&q=80', isFeatured: false, views: 211, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '11', title: 'Paper Quilling Art', category: 'Paper Quilling', imageUrl: 'https://images.unsplash.com/photo-1524335442-77da9cd08c84?w=600&q=80', isFeatured: false, views: 76, tags: [], publicId: '', description: '', createdAt: '' },
-    { _id: '12', title: 'Fingerprint Tree', category: 'Fingerprint Tree', imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', isFeatured: true, views: 302, tags: [], publicId: '', description: '', createdAt: '' },
+
+    { _id: '1', title: 'Lord Murugan Painting', category: 'Canvas Painting', imageUrl: '/artwork/canvas_painting.jpg', isFeatured: true, views: 254, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '2', title: 'Rekha Name Quilling', category: 'Paper Quilling', imageUrl: '/artwork/quil_art.jpg', isFeatured: false, views: 189, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '3', title: 'Boy or Girl Fingerprint Tree', category: 'Fingerprint Tree', imageUrl: '/artwork/fingerprint_tree_1.jpg', isFeatured: false, views: 156, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '4', title: 'Vijay & Divya Fingerprint Tree', category: 'Fingerprint Tree', imageUrl: '/artwork/fingerprint_tree_2.jpg', isFeatured: true, views: 312, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '5', title: 'Phone Case Eye Sketch', category: 'Mobile Case Sketching', imageUrl: '/artwork/mobile_back_cover.jpg', isFeatured: false, views: 298, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '6', title: 'Bharatanatyam Dancer', category: 'Colour Pencil Art', imageUrl: '/artwork/colour_pencil.jpg', isFeatured: true, views: 467, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '7', title: 'Murugan & Peacock', category: 'Colour Pencil Art', imageUrl: '/artwork/multiple_colour_pencils.jpg', isFeatured: true, views: 521, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '8', title: 'Boy Portrait Sketch', category: 'Pencil Sketch', imageUrl: '/artwork/pencil_sketching.jpg', isFeatured: false, views: 343, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '9', title: 'Boundless Love Blood Art', category: 'Blood Art', imageUrl: '/artwork/blood_art.jpg', isFeatured: true, views: 689, tags: [], publicId: '', description: '', createdAt: '' },
+    { _id: '10', title: 'Pencil Curving Miniature', category: 'Pencil Curving', imageUrl: '/artwork/pencil_curving.jpg', isFeatured: true, views: 411, tags: [], publicId: '', description: '', createdAt: '' },
 ];
 
 /* ─── Design tokens ─────────────────────────────────────────────── */
@@ -58,12 +57,13 @@ const GalleryPage = () => {
             }).then(r => r.data.data as GalleryItem[]),
     });
 
-    const items = data && data.length > 0
-        ? data
-        : PLACEHOLDERS.filter(p =>
-            (activeCategory === 'All' || p.category === activeCategory) &&
-            (!search || p.title.toLowerCase().includes(search.toLowerCase()))
-        );
+    const serverItems = data || [];
+    const allItems = [...serverItems, ...PLACEHOLDERS];
+
+    const items = allItems.filter(p =>
+        (activeCategory === 'All' || p.category === activeCategory) &&
+        (!search || p.title.toLowerCase().includes(search.toLowerCase()))
+    );
 
     return (
         <div style={{ minHeight: '100vh', background: DARK }}>
@@ -236,8 +236,8 @@ const GalleryPage = () => {
                                     src={item.imageUrl}
                                     alt={item.title}
                                     loading="lazy"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
-                                    onMouseEnter={e => ((e.target as HTMLImageElement).style.transform = 'scale(1.08)')}
+                                    style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: 'rgba(0,0,0,0.4)', display: 'block', transition: 'transform 0.5s ease' }}
+                                    onMouseEnter={e => ((e.target as HTMLImageElement).style.transform = 'scale(1.04)')}
                                     onMouseLeave={e => ((e.target as HTMLImageElement).style.transform = 'scale(1)')}
                                 />
 
