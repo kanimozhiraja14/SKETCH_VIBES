@@ -48,7 +48,6 @@ app.use('/api/gallery', require('./src/routes/gallery'));
 app.use('/api/services', require('./src/routes/services'));
 app.use('/api/frames', require('./src/routes/frames'));
 app.use('/api/orders', require('./src/routes/orders'));
-app.use('/api/testimonials', require('./src/routes/testimonials'));
 app.use('/api/contact', require('./src/routes/contact'));
 app.use('/api/dashboard', require('./src/routes/dashboard'));
 

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import {
     LayoutDashboard, Images, Layers, Frame, ShoppingBag,
-    Star, MessageSquare, Settings, LogOut, Menu, X, ChevronRight
+    MessageSquare, LogOut, Menu, X, ChevronRight
 } from 'lucide-react';
 
 const navItems = [
@@ -13,7 +13,6 @@ const navItems = [
     { path: '/admin/services', label: 'Services', icon: Layers },
     { path: '/admin/frames', label: 'Frames', icon: Frame },
     { path: '/admin/orders', label: 'Orders', icon: ShoppingBag },
-    { path: '/admin/testimonials', label: 'Testimonials', icon: Star },
     { path: '/admin/contacts', label: 'Enquiries', icon: MessageSquare },
 ];
 

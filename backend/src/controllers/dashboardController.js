@@ -1,19 +1,17 @@
 const Gallery = require('../models/Gallery');
 const Order = require('../models/Order');
 const Contact = require('../models/Contact');
-const Testimonial = require('../models/Testimonial');
 const Service = require('../models/Service');
 
 exports.getDashboardStats = async (req, res) => {
     try {
-        const [totalGallery, totalOrders, pendingOrders, completedOrders, totalContacts, unreadContacts, totalTestimonials, totalServices] = await Promise.all([
+        const [totalGallery, totalOrders, pendingOrders, completedOrders, totalContacts, unreadContacts, totalServices] = await Promise.all([
             Gallery.countDocuments(),
             Order.countDocuments(),
             Order.countDocuments({ status: 'Pending' }),
             Order.countDocuments({ status: 'Completed' }),
             Contact.countDocuments(),
             Contact.countDocuments({ isRead: false }),
-            Testimonial.countDocuments(),
             Service.countDocuments(),
         ]);
 
@@ -24,7 +22,7 @@ exports.getDashboardStats = async (req, res) => {
             success: true,
             data: {
                 totalGallery, totalOrders, pendingOrders, completedOrders,
-                totalContacts, unreadContacts, totalTestimonials, totalServices,
+                totalContacts, unreadContacts, totalServices,
                 recentOrders, recentContacts,
             },
         });

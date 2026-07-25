@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
 import GalleryPreview from '../components/home/GalleryPreview';
-import TestimonialsSection from '../components/home/TestimonialsSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import ContactSection from '../components/home/ContactSection';
 
@@ -16,7 +15,6 @@ const HomePage = () => {
             <FeaturesSection />
             <ServicesSection />
             <GalleryPreview />
-            <TestimonialsSection />
             <ContactSection />
         </div>
     );

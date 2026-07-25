@@ -70,14 +70,7 @@ export const ordersAPI = {
     update: (id: string, data: Record<string, unknown>) => API.put(`/orders/${id}`, data),
 };
 
-// Testimonials
-export const testimonialsAPI = {
-    getAll: () => API.get('/testimonials'),
-    getAllAdmin: () => API.get('/testimonials/all'),
-    create: (data: FormData) => API.post('/testimonials', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
-    update: (id: string, data: Record<string, unknown>) => API.put(`/testimonials/${id}`, data),
-    delete: (id: string) => API.delete(`/testimonials/${id}`),
-};
+
 
 // Contact
 export const contactAPI = {

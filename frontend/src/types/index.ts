@@ -62,18 +62,6 @@ export interface Order {
     createdAt: string;
 }
 
-export interface Testimonial {
-    _id: string;
-    customerName: string;
-    rating: number;
-    review: string;
-    profilePhoto?: string;
-    artworkType?: string;
-    isApproved: boolean;
-    isFeatured: boolean;
-    createdAt: string;
-}
-
 export interface Contact {
     _id: string;
     name: string;
@@ -93,7 +81,6 @@ export interface DashboardStats {
     completedOrders: number;
     totalContacts: number;
     unreadContacts: number;
-    totalTestimonials: number;
     totalServices: number;
     recentOrders: Order[];
     recentContacts: Contact[];

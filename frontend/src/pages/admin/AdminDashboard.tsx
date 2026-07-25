@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { dashboardAPI } from '../../lib/api';
-import type {  DashboardStats, Order, Contact  } from '../../types';
-import { Images, ShoppingBag, MessageSquare, Star, Clock, CheckCircle, AlertCircle, Layers } from 'lucide-react';
+import type { DashboardStats, Order, Contact } from '../../types';
+import { Images, ShoppingBag, MessageSquare, Clock, CheckCircle, AlertCircle, Layers } from 'lucide-react';
 
 const StatCard = ({ label, value, icon: Icon, color, sub }: { label: string; value: number | string; icon: any; color: string; sub?: string }) => (
     <motion.div
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
         );
     }
 
-    const stats = data || { totalGallery: 0, totalOrders: 0, pendingOrders: 0, completedOrders: 0, totalContacts: 0, unreadContacts: 0, totalTestimonials: 0, totalServices: 0, recentOrders: [], recentContacts: [] };
+    const stats = data || { totalGallery: 0, totalOrders: 0, pendingOrders: 0, completedOrders: 0, totalContacts: 0, unreadContacts: 0, totalServices: 0, recentOrders: [], recentContacts: [] };
 
     return (
         <div className="space-y-8">
@@ -75,7 +75,6 @@ const AdminDashboard = () => {
                 <StatCard label="Completed" value={stats.completedOrders} icon={CheckCircle} color="#10b981" />
                 <StatCard label="Enquiries" value={stats.totalContacts} icon={MessageSquare} color="#3b82f6" />
                 <StatCard label="Unread" value={stats.unreadContacts} icon={AlertCircle} color="#ef4444" sub="New messages" />
-                <StatCard label="Testimonials" value={stats.totalTestimonials} icon={Star} color="#f59e0b" />
                 <StatCard label="Services" value={stats.totalServices} icon={Layers} color="#06b6d4" />
             </div>
 
